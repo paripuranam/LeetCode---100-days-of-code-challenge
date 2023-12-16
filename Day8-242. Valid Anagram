@@ -1,0 +1,82 @@
+Problem Link : https://leetcode.com/problems/valid-anagram/description/?envType=daily-question&envId=2023-12-16
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+Example 1:
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Example 2:
+Input: s = "rat", t = "car"
+Output: false
+ 
+Constraints:
+1 <= s.length, t.length <= 5 * 104
+s and t consist of lowercase English letters.
+
+Java Solution:
+
+import java.util.Hashtable;
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length()!=t.length()){
+            return false;
+        }
+        Hashtable<Character, Integer> mp=new Hashtable<>();
+        for(int i=0;i<s.length();i++){
+            if(mp.containsKey(s.charAt(i))){
+                mp.put(s.charAt(i), mp.get(s.charAt(i))+1);
+            }
+            else
+            mp.put(s.charAt(i),1);
+        }
+        String k="";
+        for(int j=0;j<t.length();j++){
+            if(mp.containsKey(t.charAt(j))){
+                k+=t.charAt(j);
+                mp.put(t.charAt(j), mp.get(t.charAt(j))-1);
+                if(mp.get(t.charAt(j))==0){
+                    mp.remove(t.charAt(j));
+                }
+            }
+        }
+        if(k.length()==s.length()){
+            return true;
+        }
+        return false;
+    }
+}
+
+C++ Solution:
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        unordered_map<char, int> mp;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (mp.find(s[i]) != mp.end()) {
+                mp[s[i]]++;
+            } else {
+                mp[s[i]] = 1;
+            }
+        }
+
+        for (int j = 0; j < t.length(); j++) {
+            if (mp.find(t[j]) != mp.end()) {
+                mp[t[j]]--;
+
+                if (mp[t[j]] == 0) {
+                    mp.erase(t[j]);
+                }
+            }
+        }
+
+        return mp.empty();
+    }
+};
