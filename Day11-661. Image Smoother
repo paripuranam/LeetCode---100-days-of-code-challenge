@@ -1,0 +1,75 @@
+Problem Link : https://leetcode.com/problems/image-smoother/description/?envType=daily-question&envId=2023-12-19
+
+Java Solution:
+
+class Solution {
+    public int[][] imageSmoother(int[][] img) {
+        int ans[][] = new int[img.length][img[0].length];
+        for(int i = 0; i < img.length; i++) {
+            for(int j = 0; j < img[0].length; j++) {
+                ans[i][j] = smoothen(img, i, j);
+            }
+        }
+        return ans;
+    }
+    
+    int smoothen(int[][] img, int x, int y) {
+        int m = img.length; 
+        int n = img[0].length;
+        int sum = 0;
+        int count = 0;
+        for(int i = -1; i <= 1; i++) {
+            for(int j = -1; j <= 1; j++) {
+                int x1 = x + i;
+                int y1 = y + j;
+                if(x1 < 0 || x1 >= m || y1 < 0 || y1 >= n) continue;
+                sum += img[x1][y1];
+                count++;
+            }
+        }
+        return sum/count;
+        
+    }
+}
+
+
+C++ Solution:
+
+class Solution {
+public:
+    public:
+    std::vector<std::vector<int>> imageSmoother(std::vector<std::vector<int>>& img) {
+        int m = img.size();
+        int n = img[0].size();
+        std::vector<std::vector<int>> ans(m, std::vector<int>(n, 0));
+
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                ans[i][j] = smoothen(img, i, j);
+            }
+        }
+
+        return ans;
+    }
+
+private:
+    int smoothen(const std::vector<std::vector<int>>& img, int x, int y) {
+        int m = img.size();
+        int n = img[0].size();
+        int sum = 0;
+        int count = 0;
+
+        for (int i = -1; i <= 1; ++i) {
+            for (int j = -1; j <= 1; ++j) {
+                int x1 = x + i;
+                int y1 = y + j;
+                if (x1 >= 0 && x1 < m && y1 >= 0 && y1 < n) {
+                    sum += img[x1][y1];
+                    ++count;
+                }
+            }
+        }
+
+        return sum / count;
+    }
+};
