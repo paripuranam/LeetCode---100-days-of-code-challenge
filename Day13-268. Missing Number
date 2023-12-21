@@ -20,9 +20,9 @@ Java Solution 2:    TC -> O(n)   SC -> O(1)
 class Solution {
     public int missingNumber(int[] nums) {
         int n = nums.length;
-        int expectedSum = n * (n + 1) / 2;
-        int actualSum = Arrays.stream(nums).sum(); 
-        return expectedSum - actualSum;
+        int sum1 = n * (n + 1) / 2;
+        int sum2 = Arrays.stream(nums).sum(); 
+        return sum1 - sum2;
     }
 }
 
@@ -50,10 +50,10 @@ class Solution {
 public:
     int missingNumber(vector<int>& nums) {
         int n = nums.size();
-        int expectedSum = n * (n + 1) / 2;
-        int actualSum = accumulate(nums.begin(), nums.end(), 0);  // O(n) time complexity
+        int sum1 = n * (n + 1) / 2;
+        int sum2 = accumulate(nums.begin(), nums.end(), 0);  // O(n) time complexity
 
-        return expectedSum - actualSum;
+        return sum1 - sum2;
     }
 };
 
