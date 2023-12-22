@@ -1,0 +1,58 @@
+Problem Link : https://leetcode.com/problems/maximum-score-after-splitting-a-string/description/?envType=daily-question&envId=2023-12-22
+
+Java Solution :
+class Solution {
+    public int maxScore(String s) {
+        String s1="";
+        int n=s.length();
+        
+        int maxi=0;
+        for(int i=0;i<n-1;i++){
+            int cnt1=0,cnt2=0;
+            s1+=s.charAt(i);
+            for(int j=0;j<s1.length();j++){
+                if(s1.charAt(j)=='0'){
+                    cnt1++;
+                }
+            }
+            for(int k=i+1;k<n;k++){
+                if(s.charAt(k)=='1'){
+                    cnt2++;
+                }
+            }
+            int sum=cnt1+cnt2;
+            maxi = Math.max(sum,maxi);
+        }
+        return maxi;
+    }
+}
+
+
+C++ Solution :
+
+class Solution {
+public:
+    int maxScore(string s) {
+        string s1="";
+        int n=s.size();
+        
+        int maxi=0;
+        for(int i=0;i<n-1;i++){
+            int cnt1=0,cnt2=0;
+            s1+=s[i];
+            for(int j=0;j<s1.size();j++){
+                if(s1[j] =='0'){
+                    cnt1++;
+                }
+            }
+            for(int k=i+1;k<n;k++){
+                if(s[k]=='1'){
+                    cnt2++;
+                }
+            }
+            int sum=cnt1+cnt2;
+            maxi = max(sum,maxi);
+        }
+        return maxi;
+    }
+};
