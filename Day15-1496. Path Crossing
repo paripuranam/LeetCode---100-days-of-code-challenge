@@ -1,0 +1,67 @@
+Problem Link : https://leetcode.com/problems/path-crossing/description/?envType=daily-question&envId=2023-12-23
+
+Java Solution :
+
+public class Solution {
+    public boolean isPathCrossing(String path) {
+        int x = 0, y = 0;
+        Set<String> visitedPlace = new HashSet<>();
+        visitedPlace.add("0,0");
+
+        for (char direction : path.toCharArray()) {
+            if (direction == 'E') {
+                x++;
+            } else if (direction == 'W') {
+                x--;
+            } else if (direction == 'N') {
+                y++;
+            } else if (direction == 'S') {
+                y--;
+            }
+
+            String currentPos = x + "," + y;
+            if (visitedPlace.contains(currentPos)) {
+                return true;
+            }
+
+            visitedPlace.add(currentPos);
+        }
+
+        return false;
+    }
+}
+
+
+C++ Solution :
+
+struct pair_hash {
+    template <class T1, class T2>
+    std::size_t operator () (const std::pair<T1, T2>& p) const {
+        auto h1 = std::hash<T1>{}(p.first);
+        auto h2 = std::hash<T2>{}(p.second);
+
+        return h1 ^ h2;
+    }
+};
+
+class Solution {
+public:
+    bool isPathCrossing(std::string path) {
+        int x = 0, y = 0;
+        std::unordered_set<std::pair<int, int>, pair_hash> visitedPlace;
+        visitedPlace.insert({0, 0});
+
+        for (char direction : path) {
+            x += (direction == 'E') ? 1 : ((direction == 'W') ? -1 : 0);
+            y += (direction == 'N') ? 1 : ((direction == 'S') ? -1 : 0);
+
+            if (visitedPlace.find({x, y}) != visitedPlace.end()) {
+                return true;
+            }
+
+            visitedPlace.insert({x, y});
+        }
+
+        return false;
+    }
+};
