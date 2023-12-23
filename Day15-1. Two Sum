@@ -1,0 +1,41 @@
+Problem Link : https://leetcode.com/problems/two-sum/
+
+Java Solution : TC -> O(n) SC -> O(1)
+import java.util.Hashtable;
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int n=nums.length;
+        Hashtable<Integer, Integer> ans=new Hashtable<>();
+        int num=0;
+        for(int i=0;i<n;i++){
+            num = target - nums[i];
+            if(ans.containsKey(num)){
+                return new int[] {ans.get(num),i};
+            }
+            else{
+                ans.put(nums[i],i);
+            }
+        }
+        return new int[] {};
+    }
+}
+
+C++ Solution :  TC -> O(n) SC -> O(1)
+#include <unordered_map>
+#include <vector>
+class Solution {
+public:
+    std::vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        std::unordered_map<int, int> ans;
+        for (int i = 0; i < n; i++) {
+            int num = target - nums[i];
+            if (ans.find(num) != ans.end()) {
+                return {ans[num], i};
+            } else {
+                ans[nums[i]] = i;
+            }
+        }
+        return {};
+    }
+};
