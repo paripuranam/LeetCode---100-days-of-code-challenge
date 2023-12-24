@@ -1,0 +1,50 @@
+Problem Link : https://leetcode.com/problems/nth-digit/description/
+
+Java Solution :
+class Solution {
+    public int findNthDigit(int n) {
+        if (n < 10) {
+            return n;
+        }
+        
+        long base = 9;
+        int digits = 1;
+        
+        while (n > base * digits) {
+            n -= base * digits;
+            base *= 10;
+            digits++;
+        }
+        
+        int number = (int) Math.pow(10, digits - 1) + (n - 1) / digits;
+        int digitIndex = (n - 1) % digits;
+        
+        return String.valueOf(number).charAt(digitIndex) - '0';
+    }
+}
+
+C++ Solution :
+class Solution {
+public:
+    int findNthDigit(int n) {
+       if (n < 10) {
+        return n;
+    }
+
+    long base = 9;
+    int digits = 1;
+
+    while (n > base * digits) {
+        n -= base * digits;
+        base *= 10;
+        digits++;
+    }
+
+    int number = pow(10, digits - 1) + (n - 1) / digits;
+    int digitIndex = (n - 1) % digits;
+
+    std::string numberStr = std::to_string(number);
+    return numberStr[digitIndex] - '0';
+
+    }
+};
