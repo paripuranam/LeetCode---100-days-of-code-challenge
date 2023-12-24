@@ -1,0 +1,67 @@
+Problem Link : https://leetcode.com/problems/odd-even-linked-list/description/
+
+Java Solution :
+
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode temp1=head;
+        ListNode temp2=new ListNode(0);
+        ListNode temp3=temp2;
+        while(temp1!=null && temp1.next!=null  && temp1.next.next!=null){
+            temp2.next=new ListNode(temp1.next.val);
+            temp2=temp2.next;
+            temp1.next=temp1.next.next;
+            temp1=temp1.next;
+        }
+        if(temp1.next==null){
+            temp1.next=temp3.next;
+        }
+        else{
+            temp2.next=temp1.next;
+            temp2=temp2.next;
+            temp2.next=null;
+            temp1.next=temp3.next;
+        }
+        return head;
+        
+    }
+}
+
+
+C++ Solution :
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) {
+            return head;
+        }
+
+        ListNode* temp1 = head;
+        ListNode* temp2 = new ListNode(0);
+        ListNode* temp3 = temp2;
+
+        while (temp1 != nullptr && temp1->next != nullptr && temp1->next->next != nullptr) {
+            temp2->next = new ListNode(temp1->next->val);
+            temp2 = temp2->next;
+            temp1->next = temp1->next->next;
+            temp1 = temp1->next;
+        }
+
+        if (temp1->next == nullptr) {
+            temp1->next = temp3->next;
+        } else {
+            temp2->next = temp1->next;
+            temp2 = temp2->next;
+            temp2->next = nullptr;
+            temp1->next = temp3->next;
+        }
+
+        return head;
+    }
+};
+
+
