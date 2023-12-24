@@ -1,0 +1,53 @@
+Problem Link : https://leetcode.com/problems/minimum-changes-to-make-alternating-binary-string/description/?envType=daily-question&envId=2023-12-24
+
+Java Solution :
+class Solution {
+    public int minOperations(String s) {
+        char ch = s.charAt(0);
+        int cnt1 = count(s, ch);
+        int cnt2 = count(s, ch=='0'?'1':'0')+1;
+        return Math.min(cnt1, cnt2);
+    }
+
+    private int count(String s, char c_pre){
+        int count = 0;
+        for(int i=1; i<s.length(); i++){
+            char current = s.charAt(i);
+            if(current==c_pre){
+                count++;
+                c_pre = c_pre == '0' ? '1' : '0';
+            }else{
+                c_pre = current;   
+            }
+        }
+        return count;
+    }
+}
+
+
+
+C++ Solution :
+
+class Solution {
+public:
+    int minOperations(string s) {
+        char ch = s[0];
+        int cnt1 = count(s, ch);
+        int cnt2 = count(s, ch=='0'?'1':'0')+1;
+        return min(cnt1, cnt2);
+    }
+
+    int count(string s, char c_pre){
+        int count = 0;
+        for(int i=1; i<s.length(); i++){
+            char current = s[i];
+            if(current==c_pre){
+                count++;
+                c_pre = c_pre == '0' ? '1' : '0';
+            }else{
+                c_pre = current;   
+            }
+        }
+        return count;
+    }
+};
