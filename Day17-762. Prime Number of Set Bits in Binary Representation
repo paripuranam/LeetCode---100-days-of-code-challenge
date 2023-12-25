@@ -1,0 +1,28 @@
+Problem Link : https://leetcode.com/problems/prime-number-of-set-bits-in-binary-representation/description/
+
+C++ Solution:
+class Solution {
+public:
+    int countPrimeSetBits(int left, int right) {
+        int ans=0;
+        while(left<=right) {
+            int cnt=__builtin_popcount(left);
+            if(cnt==2 || cnt==3 || cnt==5 || cnt==7 || cnt==11 || cnt==13 || cnt==17 || cnt==19)
+                ++ans;
+            ++left;
+        }
+        return ans;
+    }
+};
+
+Python Solution:
+class Solution:
+    def countPrimeSetBits(self, left: int, right: int) -> int:
+        primes = {2, 3, 5, 7, 11, 13, 17, 19}
+        c = 0
+
+        for i in range(left, right + 1):
+            if i.bit_count() in primes:
+                c += 1
+                
+        return c
