@@ -1,0 +1,44 @@
+Problem Link : https://leetcode.com/problems/palindrome-number/description/
+
+Java Solution :
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+
+        long  reversed = 0;
+        long  dp = x;
+
+        while (dp > 0) {
+            long cnt = dp % 10;
+            reversed = reversed * 10 + cnt;
+            dp /= 10;
+        }
+
+        return (reversed == x);
+    }
+}
+
+
+C++ Solution:
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+
+        long long reversed = 0;
+        long long dp = x;
+
+        while (dp > 0) {
+            int cnt = dp % 10;
+            reversed = reversed * 10 + cnt;
+            dp /= 10;
+        }
+
+        return (reversed == x);
+    }
+};
