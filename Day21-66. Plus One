@@ -1,0 +1,48 @@
+Problem Link : https://leetcode.com/problems/plus-one/description/
+
+Java Solution :
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int n=digits.length;
+        int last_digit=n-1;
+        while(digits[last_digit]==9){
+            if(last_digit==0){
+                int[] newArray = new int[n+1];
+                newArray[0]=1;
+                return newArray;
+            }
+            digits[last_digit]=0;
+            last_digit--;
+        }
+
+        digits[last_digit]++;
+
+        return digits;
+    }
+}
+
+
+C++ Solution :
+
+#include <vector>
+class Solution {
+public:
+    std::vector<int> plusOne(std::vector<int>& digits) {
+        int n = digits.size();
+        int last_digit = n - 1;
+        
+        while (digits[last_digit] == 9) {
+            if (last_digit == 0) {
+                std::vector<int> newArray(n + 1, 0);
+                newArray[0] = 1;
+                return newArray;
+            }
+            digits[last_digit] = 0;
+            last_digit--;
+        }
+
+        digits[last_digit]++;
+
+        return digits;
+    }
+};
