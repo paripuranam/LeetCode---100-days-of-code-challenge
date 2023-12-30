@@ -1,0 +1,68 @@
+Problem Link : https://leetcode.com/problems/redistribute-characters-to-make-all-strings-equal/description/?envType=daily-question&envId=2023-12-30 
+
+Java Solution :
+class Solution {
+    public boolean makeEqual(String[] words) {
+      if(words.length==1){
+          return true;
+      }
+      int charcount = 0;
+      for(String s : words ){
+          charcount += s.length();
+      }
+
+      if(charcount % words.length != 0){
+          return false;
+      }
+
+      int[] mpp = new int[26];
+      for(String s1 : words ){
+          for( char ch : s1.toCharArray()){
+              mpp[ch - 'a']++;
+          }
+      }
+      for(int i : mpp){
+          if(i%words.length != 0){
+              return false;
+          }
+      }
+      return true;
+    }
+}
+
+
+
+
+C++ Solution : 
+class Solution {
+public:
+    bool makeEqual(vector<string>& words) {
+        if (words.size() == 1) {
+            return true;
+        }
+
+        int charcount = 0;
+        for (const string& s : words) {
+            charcount += s.length();
+        }
+
+        if (charcount % words.size() != 0) {
+            return false;
+        }
+
+        vector<int> mpp(26, 0);
+        for (const string& s : words) {
+            for (char c : s) {
+                mpp[c - 'a']++;
+            }
+        }
+
+        for (int i : mpp) {
+            if (i % words.size() != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
