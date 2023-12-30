@@ -1,0 +1,70 @@
+Problem Link : https://leetcode.com/problems/valid-parentheses/description/
+
+Java Solution :
+class Solution {
+    public boolean isValid(String s) {
+        int n=s.length();
+        char a[]=new char[n];
+        int top=-1;
+        for(int i=0;i<n;i++)
+        {
+            char ch=s.charAt(i);
+            if(ch=='{'||ch=='('||ch=='[')
+                a[++top]=ch;
+            else
+            {
+                if(top==-1)
+                {
+                    
+                    return false;
+                }   
+                char cpop=a[top];
+                if((ch==')'&&cpop=='(')||(ch==']'&&cpop=='[')||(ch=='}'&&cpop=='{'))
+                    top--;
+                    else
+                    return false;
+               
+            }
+        }
+        if(top==-1)
+            return true;
+        else
+            return false;
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    bool isValid(string s) {
+        int n=s.size();
+        char a[] = new char[n];
+        int top=-1;
+        for(int i=0;i<n;i++)
+        {
+            char ch=s.charAt(i);
+            if(ch=='{'||ch=='('||ch=='[')
+                a[++top]=ch;
+            else
+            {
+                if(top==-1)
+                {
+                    
+                    return false;
+                }   
+                char cpop=a[top];
+                if((ch==')'&&cpop=='(')||(ch==']'&&cpop=='[')||(ch=='}'&&cpop=='{'))
+                    top--;
+                    else
+                    return false;
+               
+            }
+        }
+        if(top==-1)
+            return true;
+        else
+            return false;
+    }
+};
