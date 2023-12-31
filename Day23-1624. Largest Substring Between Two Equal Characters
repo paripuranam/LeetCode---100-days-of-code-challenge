@@ -1,0 +1,41 @@
+Problem Link : https://leetcode.com/problems/largest-substring-between-two-equal-characters/description/?envType=daily-question&envId=2023-12-31
+
+Java Solution :
+class Solution {
+    public int maxLengthBetweenEqualCharacters(String s) {
+        Map<Character, Integer> mpp = new HashMap();
+        int cnt = -1;
+        
+        for (int i = 0; i < s.length(); i++) {
+            if (mpp.containsKey(s.charAt(i))) {
+                cnt = Math.max(cnt, i - mpp.get(s.charAt(i)) - 1);
+            } else {
+                mpp.put(s.charAt(i), i);
+            }
+        }
+        
+        return cnt;
+    }
+}
+
+
+
+C++ Solution :
+
+class Solution {
+public:
+    int maxLengthBetweenEqualCharacters(string s) {
+        unordered_map<char, int> mpp;
+        int cnt =-1;
+        for(int i=0;i<s.size();i++){
+            if(mpp.find(s[i]) != mpp.end()){
+                cnt = max(cnt , i - mpp[s[i]]-1);
+            }
+            else {
+                mpp[s[i]] = i;
+            }
+        }
+
+        return cnt;
+    }
+};
