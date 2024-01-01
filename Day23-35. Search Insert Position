@@ -1,0 +1,69 @@
+Problem Link : https://leetcode.com/problems/search-insert-position/description/
+
+Java Solution :
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int n=0;
+        int len=nums.length;
+        if(len==1){
+            if(nums[0]<target){
+                n=0+1;
+            }
+        }
+        else {
+            for(int i=1;i<nums.length;i++){
+            if(nums[i-1]<target && nums[i]>=target){
+                n=i;
+            break;
+            }
+            else if(i==nums.length-1){
+                if(nums[i]<target){
+                    n=i+1;
+                    break;
+                }
+            }
+        }
+        }
+        
+        return n;
+    }
+}
+
+
+C++ Solution :
+
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int n=0;
+        int len = nums.size();
+
+        if(len==1){
+            if(nums[0]<target){
+                return 1;
+            }
+        }
+        else {
+            for(int i=1;i<len;i++){
+                if(nums[i-1]<target && nums[i]>=target){
+                    n=i;
+                    break;
+                    }
+                    
+            
+            else if(i==len-1){
+                if(nums[i]<target){
+                    n=i+1;
+                    break;
+                }
+            }
+            }
+        }
+        return n;
+    }
+};
+
+
+
+C++ Solution 
+
