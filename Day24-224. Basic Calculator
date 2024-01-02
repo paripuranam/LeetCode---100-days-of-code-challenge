@@ -1,0 +1,47 @@
+Problem Link : https://leetcode.com/problems/basic-calculator/description/
+
+Java Solution :
+class Solution {
+    public int calculate(String s) {
+        int res = 0, sum = 0, sign = 1;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);
+        for(char ch: s.toCharArray()){
+            if(Character.isDigit(ch)) sum = sum * 10 + (ch - '0');
+            else{
+                res += sum * sign * stack.peek();
+                sum = 0;
+                if(ch == '-') sign = -1;
+                else if(ch == '+') sign = 1;
+                else if(ch == '('){
+                    stack.push(stack.peek() * sign);
+                    sign = 1;
+                } else if(ch == ')') stack.pop();
+            }
+        }
+        return res += sign * sum;
+    }
+}
+
+
+C++ Solution:
+
+class Solution {
+public:
+    int calculate(string s) {
+        int res = 0, sum = 0, sign = 1;
+        stack<int> stack({1});
+        for(auto ch: s){
+            if(isdigit(ch)) sum = sum * 10 + (ch - '0');
+            else{
+                res += sum * sign * stack.top();
+                sum = 0;
+                if(ch == '-') sign = -1;
+                else if(ch == '+') sign = 1;
+                else if(ch == '(') stack.push(stack.top() * sign), sign = 1;
+                else if(ch == ')') stack.pop();
+            }
+        }
+        return res += (sum * sign);
+    }
+};
