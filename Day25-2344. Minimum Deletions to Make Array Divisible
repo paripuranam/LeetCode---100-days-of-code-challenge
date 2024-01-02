@@ -1,0 +1,59 @@
+Problem Link : https://leetcode.com/problems/minimum-deletions-to-make-array-divisible/description/
+
+Java Solution :
+
+class Solution {
+    public int minOperations(int[] nums, int[] numsDivide) {
+        Arrays.sort(nums);
+        if (nums[0] == 1) return 0;
+        
+        int g = 0;
+        for (int i : numsDivide) {
+            g = gcd(g, i);
+        }
+        
+        if (g == 1 || g < nums[0]) {
+            return -1;
+        }
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (g % nums[i] == 0) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+     private int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+}
+
+
+C++ Solution:
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, vector<int>& numsDivide) {
+        sort(nums.begin(),nums.end());
+        if(nums[0]==1)return 0;
+        int g = 0;
+        for(auto &i: numsDivide){
+            g = __gcd(g,i);
+        }
+        if(g==1||g<nums[0]){
+            return -1;
+        }
+        for(int i = 0;i<nums.size();i++){
+            if(g%nums[i] == 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+};
