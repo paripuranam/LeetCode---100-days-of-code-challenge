@@ -1,0 +1,44 @@
+Problem Link : https://leetcode.com/problems/power-of-four/description/
+
+Java Solution :
+class Solution {
+    public boolean isPowerOfFour(int n) {
+        return PowerValue(n);
+    }
+    boolean PowerValue(int n){
+        if(n==0){
+            return false;
+        }
+        if(n==1){
+            return true;
+        }
+        if(n%4==0){
+            n/=4;
+        }
+        else return false;
+
+        return PowerValue(n);
+    }
+}
+
+C++ Solution :
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+         return PowerValue(n);
+    }
+    bool PowerValue(int n){
+        if(n==0){
+            return false;
+        }
+        if(n==1){
+            return true;
+        }
+        if(n%4==0){
+            n/=4;
+        }
+        else return false;
+
+        return PowerValue(n);
+    }
+};
