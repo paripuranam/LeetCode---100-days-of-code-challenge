@@ -1,0 +1,122 @@
+Problem Link : https://leetcode.com/problems/find-in-mountain-array/
+
+Java Solution:
+class Solution {
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int n = mountainArr.length();
+
+        int peakIndex = findPeakIndex(mountainArr, 0, n - 1);
+
+        int increasingPart = binarySearch(target, mountainArr, 0, peakIndex, true);
+
+        if (increasingPart != -1) {
+            return increasingPart;
+        }
+
+        int decreasingPart = binarySearch(target, mountainArr, peakIndex + 1, n - 1, false);
+
+        return decreasingPart;
+    }
+
+    private int findPeakIndex(MountainArray mountainArr, int low, int high) {
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (mountainArr.get(mid) < mountainArr.get(mid + 1)) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
+    private int binarySearch(int target, MountainArray mountainArr, int low, int high, boolean increasing) {
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int midValue = mountainArr.get(mid);
+
+            if (midValue == target) {
+                return mid;
+            }
+
+            if (increasing) {
+                if (midValue < target) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            } else {
+                if (midValue > target) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
+        }
+
+        return -1; 
+    }
+}
+
+
+
+C++ Solution :
+
+class Solution {
+public:
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+        int n = mountainArr.length();
+        
+        int Index = findPeakIndex(mountainArr, 0, n - 1);
+
+        int increasingPart = binarySearch(target, mountainArr, 0, Index, true);
+
+        if (increasingPart != -1) {
+            return increasingPart;
+        }
+
+        int decreasingPart = binarySearch(target, mountainArr, Index + 1, n - 1, false);
+
+        return decreasingPart;
+    }
+
+private:
+    int findPeakIndex(MountainArray &mountainArr, int low, int high) {
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (mountainArr.get(mid) < mountainArr.get(mid + 1)) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
+    int binarySearch(int target, MountainArray &mountainArr, int low, int high, bool increasing) {
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int midValue = mountainArr.get(mid);
+
+            if (midValue == target) {
+                return mid;
+            }
+
+            if (increasing) {
+                if (midValue < target) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            } else {
+                if (midValue > target) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
+        }
+
+        return -1; 
+    }
+};
