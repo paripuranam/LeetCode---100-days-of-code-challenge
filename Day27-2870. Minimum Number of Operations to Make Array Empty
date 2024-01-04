@@ -1,0 +1,53 @@
+Problem Link : https://leetcode.com/problems/minimum-number-of-operations-to-make-array-empty/?envType=daily-question&envId=2024-01-04
+
+Java Solution:
+import java.util.HashMap;
+
+class Solution {
+    public int minOperations(int[] nums) {
+        HashMap<Integer, Integer> mpp = new HashMap<>();
+
+        for (int num : nums) {
+            if(mpp.containsKey(num)){
+                mpp.put(num, mpp.get(num) + 1);
+            }
+            else 
+            mpp.put(num,1);
+            
+        }
+
+        int cnt = 0;
+
+        for (int count : mpp.values()) {
+           if(count == 1){
+                return -1;
+            }
+
+            cnt += count/3;
+            if(count % 3 != 0) cnt++;
+        }
+
+        return cnt;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        unordered_map<int, int> mpp;
+        for(auto num : nums){
+            mpp[num]++;
+        }
+        int cnt=0;
+        for(auto count : mpp){
+            int c = count.second;
+            if(c==1) return -1;
+
+            cnt += c/3;
+            if(c%3!=0) cnt++;
+        }
+        return cnt;
+    }
+};
