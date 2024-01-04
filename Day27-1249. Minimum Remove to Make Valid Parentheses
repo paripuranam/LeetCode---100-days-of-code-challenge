@@ -1,0 +1,68 @@
+Problem Link : https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/description/
+
+Java Solution:
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<s.length();i++) {
+            char ch = s.charAt(i);
+            if(Character.isAlphabetic(ch))
+                continue;
+            if(ch == '(')
+                stack.push(i);
+            else {
+                if(!stack.isEmpty() && s.charAt(stack.peek()) == '(')
+                    stack.pop();
+                else stack.push(i);
+            }
+        }        
+        StringBuilder result = new StringBuilder();
+        HashSet<Integer> set = new HashSet<>(stack);
+        for(int i=0;i<s.length();i++)
+            if(!set.contains(i))
+                result.append(s.charAt(i));
+        
+        return result.toString();
+    }
+}
+
+
+
+C++ Solution:
+
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        int n = s.length();
+        vector<int> pair(n,0);
+        stack<int> open;
+
+        for(int i=0; i<n; i++){
+            if(s[i]=='('){
+                open.push(i);
+            }
+            else if(s[i]==')'){
+                if(!open.empty() && s[open.top()] =='('){ 
+                    int j = open.top();
+                    pair[i] = j;
+                    pair[j] = i;
+                    open.pop();
+                }
+                else 
+                    open.push(i);
+            }
+        }
+        
+        while(!open.empty()){
+            pair[open.top()] = -1;
+            open.pop();
+        }
+        
+        string ans;
+        for(int i=0; i<n; i++){
+            if(pair[i] >= 0)
+                ans += s[i];
+        }
+        return ans;
+    }
+};
