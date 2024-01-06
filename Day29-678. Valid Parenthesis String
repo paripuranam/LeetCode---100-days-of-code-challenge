@@ -1,0 +1,50 @@
+Problem Link : https://leetcode.com/problems/valid-parenthesis-string/description/
+
+Java Solution:
+class Solution {
+    public boolean checkValidString(String s) {
+        int cmin = 0, cmax = 0; 
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                cmax++;
+                cmin++;
+            } else if (c == ')') {
+                cmax--;
+                cmin--;
+            } else if (c == '*') {
+                cmax++; 
+                cmin--; ]
+            }
+            if (cmax < 0) return false; 
+            cmin = Math.max(cmin, 0);   
+        }
+        return cmin == 0; 
+    }
+}
+
+
+C++ Solution:
+
+class Solution {
+public:
+    bool checkValidString(string s) {
+        int cmin = 0, cmax = 0; 
+        for (int i=0;i<s.size();i++) {
+            char c = s[i];
+            if (c == '(') {
+                cmax++;
+                cmin++;
+            } else if (c == ')') {
+                cmax--;
+                cmin--;
+            } else if (c == '*') {
+                cmax++; 
+                cmin--; 
+            }
+            if (cmax < 0) return false; 
+            cmin = max(cmin, 0);
+              
+        }
+        return cmin == 0; 
+    }
+};
