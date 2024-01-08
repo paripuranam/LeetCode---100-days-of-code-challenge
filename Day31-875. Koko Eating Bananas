@@ -1,0 +1,81 @@
+Problem Link : https://leetcode.com/problems/koko-eating-bananas/description/
+
+
+Java Solution:
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int n = piles.length;
+        long  low=1;
+        long  high = findMax(piles);
+        while(low<=high){
+            long  mid = (low+high)/2;
+            long  totalH = calculateTotalHours(piles, mid);
+        if (totalH <= h) {
+            high = mid - 1;
+        }
+        else {
+            low = mid + 1;
+        }
+    }
+    return (int)low;
+    }
+
+    long  findMax(int[] piles){
+        long  maxi=Integer.MIN_VALUE;
+        for(int i=0;i<piles.length;i++){
+            if(maxi<piles[i]){
+                maxi=piles[i];
+            }
+        }
+        return maxi;
+    }
+
+    long  calculateTotalHours(int[] piles, long  hourly) {
+        long  totalH = 0;
+        int n = piles.length;
+        for (int i = 0; i < n; i++) {
+            totalH += Math.ceil((double)(piles[i]) / (double)(hourly));
+            }
+            return totalH;
+        } 
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int n = piles.size();
+        long long low=1;
+        long long high = findMax(piles);
+        while(low<=high){
+            long long mid = (low+high)/2;
+            long long totalH = calculateTotalHours(piles, mid);
+        if (totalH <= h) {
+            high = mid - 1;
+        }
+        else {
+            low = mid + 1;
+        }
+    }
+    return low;
+    }
+    long long findMax(vector<int>& piles){
+        long long maxi=INT_MIN;
+        for(int i=0;i<piles.size();i++){
+            if(maxi<piles[i]){
+                maxi=piles[i];
+            }
+        }
+        return maxi;
+    }
+    long long calculateTotalHours(vector<int> &piles, long long hourly) {
+    long long totalH = 0;
+    int n = piles.size();
+    for (int i = 0; i < n; i++) {
+        totalH += ceil((double)(piles[i]) / (double)(hourly));
+    }
+    return totalH;
+}
+};
