@@ -28,3 +28,4 @@ public:
         return sum+leftSum+rightSum;
     }
 };
+end
