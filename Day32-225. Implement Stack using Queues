@@ -1,0 +1,69 @@
+Problem Link : https://leetcode.com/problems/implement-stack-using-queues/
+
+
+Java Solution:
+class MyStack {
+    private Queue<Integer> q = new LinkedList<>();
+
+    MyStack() {
+        
+    }
+
+    void push(int x) {
+        q.add(x);
+        int v = q.size() - 1;
+        int i = 0;
+        while (i < v) {
+            q.add(q.poll());
+            i++;
+        }
+    }
+
+    int pop() {
+        return q.poll();
+    }
+
+    int top() {
+        return q.peek();
+    }
+
+    boolean empty() {
+        return q.isEmpty();
+    }
+}
+
+
+
+C++ Solution:
+class MyStack {
+public:
+queue<int>q;
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+        q.push(x);
+        int v=q.size()-1;
+        int i=0;
+        while(i<v){
+          q.push(q.front());
+          i++;
+          q.pop();
+        }
+    }
+    
+    int pop() {
+        int p=q.front();
+        q.pop();
+        return p;
+    }
+    
+    int top() {
+      return q.front();  
+    }
+    
+    bool empty() {
+        return q.size()==0;
+    }
+};

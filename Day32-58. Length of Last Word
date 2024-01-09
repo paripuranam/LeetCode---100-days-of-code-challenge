@@ -1,0 +1,43 @@
+Problem Link : https://leetcode.com/problems/length-of-last-word/description/
+
+
+Java Solution:
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int ln=s.length();
+        int first=0;
+        for(int i=ln-1;i>0;i--){
+             if(s.charAt(i)!=' ' && s.charAt(i-1) == ' ' ){
+
+                 first = i;
+
+                break;
+        }
+    }
+    String temp=s.substring(first).trim();
+    return temp.length();
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int ln = s.length();
+        int first = 0;
+
+        for (int i = ln - 1; i >= 0; i--) {
+            if (s[i] != ' ' && (i == 0 || s[i - 1] == ' ')) {
+                first = i;
+                break;
+            }
+        }
+
+        string temp = s.substr(first);
+        size_t pos = temp.find_last_not_of(' ');
+        temp = (pos != string::npos) ? temp.substr(0, pos + 1) : "";
+        
+        return temp.length();
+    }
+};

@@ -1,0 +1,127 @@
+Problem Link : https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/description/
+
+
+Java Solution:
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        if(((long)m * (long)k)>bloomDay.length)
+        return -1;
+
+        long high= maxdays(bloomDay);
+        long low = mindays(bloomDay);
+
+        long ans = MakingBouquets(bloomDay,low,high,m,k);
+        
+        return (int)ans;
+    }
+
+    long maxdays(int[] bloomDay){
+        long maxi=Integer.MIN_VALUE;
+        for(int i=0;i<bloomDay.length;i++){
+            if(maxi<bloomDay[i]) {
+                maxi=bloomDay[i];
+            }
+        }
+        return maxi;
+    }
+
+    long mindays(int[] bloomDay){
+        long mini=Integer.MAX_VALUE;
+        for(int i=0;i<bloomDay.length;i++){
+            if(mini>bloomDay[i]) {
+                mini=bloomDay[i];
+            }
+        }
+        return mini;
+    }
+
+    long MakingBouquets(int[] bloomDay,long low,long high,int m,int k){
+        while(low<=high){
+            long mid = (low+high)/2;
+            if(checkposibilty(bloomDay,mid,m,k)) high = mid-1;
+            else low = mid+1;
+        }
+        return low;
+    }
+
+    boolean checkposibilty(int[] bloomDay,long mid,int m,int k){
+        int n = bloomDay.length;
+        long cnt=0;
+        long noOfD = 0;
+        for(int i=0;i<n;i++){
+            if (bloomDay[i] <= mid) {
+            cnt++;
+        }
+        else {
+            noOfD += (cnt / k);
+            cnt = 0;
+            }
+        }
+        noOfD += (cnt / k);
+        return noOfD >= m;
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        if(((long long)m * (long long)k)>bloomDay.size())
+        return -1;
+
+        long long high= maxdays(bloomDay);
+        long long low = mindays(bloomDay);
+
+        long long ans = MakingBouquets(bloomDay,low,high,m,k);
+
+        return ans;
+    }
+
+    long long maxdays(vector<int>& bloomDay){
+        long long maxi=INT_MIN;
+        for(int i=0;i<bloomDay.size();i++){
+            if(maxi<bloomDay[i]) {
+                maxi=bloomDay[i];
+            }
+        }
+        return maxi;
+    }
+
+    long long mindays(vector<int>& bloomDay){
+        long long mini=INT_MAX;
+        for(int i=0;i<bloomDay.size();i++){
+            if(mini>bloomDay[i]) {
+                mini=bloomDay[i];
+            }
+        }
+        return mini;
+    }
+
+    long long MakingBouquets(vector<int>& bloomDay,long long low,long long high,int m,int k){
+        while(low<=high){
+            long long mid = (low+high)/2;
+            if(checkposibilty(bloomDay,mid,m,k)) high = mid-1;
+            else low = mid+1;
+        }
+        return low;
+    }
+
+    bool checkposibilty(vector<int>& bloomDay,long long mid,int m,int k){
+        int n = bloomDay.size();
+        long long cnt=0;
+        long long noOfD = 0;
+        for(int i=0;i<n;i++){
+            if (bloomDay[i] <= mid) {
+            cnt++;
+        }
+        else {
+            noOfD += (cnt / k);
+            cnt = 0;
+            }
+        }
+        noOfD += (cnt / k);
+        return noOfD >= m;
+    }
+};
