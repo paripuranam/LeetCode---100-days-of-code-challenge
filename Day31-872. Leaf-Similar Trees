@@ -1,0 +1,53 @@
+Problem Link : https://leetcode.com/problems/leaf-similar-trees/description/?envType=daily-question&envId=2024-01-09
+
+
+Java Solution:
+public class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        List<Integer> leafValues1 = new ArrayList<>();
+        List<Integer> leafValues2 = new ArrayList<>();
+        
+        leafvalues(root1, leafValues1);
+        leafvalues(root2, leafValues2);
+
+        return leafValues1.equals(leafValues2);
+    }
+
+    private void leafvalues(TreeNode root, List<Integer> leafValues) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            leafValues.add(root.val);
+        }
+        leafvalues(root.left, leafValues);
+        leafvalues(root.right, leafValues);
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        vector<int> leafValues1;
+        vector<int> leafValues2;
+        
+        leafvalues(root1, leafValues1);
+        leafvalues(root2, leafValues2);
+
+        return leafValues1==leafValues2;
+    }
+
+    private:
+    void leafvalues(TreeNode* root, vector<int>& leafValues) {
+        if (root == nullptr) {
+            return;
+        }
+        if (root->left == nullptr && root->right == nullptr) {
+            leafValues.push_back(root->val);
+        }
+        leafvalues(root->left, leafValues);
+        leafvalues(root->right, leafValues);
+    }
+};
