@@ -1,0 +1,104 @@
+Problem Link : https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/description/?envType=daily-question&envId=2024-01-10
+
+
+Java Solution:
+class Solution {
+    private Map<Integer, List<Integer>> adjacencyList = new HashMap<>();
+
+    public int amountOfTime(TreeNode root, int start) {
+        convertToGraph(root);
+        Deque<Integer> queue = new ArrayDeque<>();
+        Set<Integer> visited = new HashSet<>();
+      
+        queue.offer(start);
+        int time = -1; 
+      
+        while (!queue.isEmpty()) {
+            time++;
+            for (int i = queue.size(); i > 0; i--) {
+                int currentNode = queue.pollFirst();
+                visited.add(currentNode);
+              
+                if (adjacencyList.containsKey(currentNode)) {
+                    for (int neighbor : adjacencyList.get(currentNode)) {
+                        if (!visited.contains(neighbor)) {
+                            queue.offer(neighbor);
+                        }
+                    }
+                }
+            }
+        }
+        return time;
+    }
+
+    private void convertToGraph(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+      
+        if (node.left != null) {
+            adjacencyList.computeIfAbsent(node.val, k -> new ArrayList<>()).add(node.left.val);
+            adjacencyList.computeIfAbsent(node.left.val, k -> new ArrayList<>()).add(node.val);
+        }
+      
+        if (node.right != null) {
+            adjacencyList.computeIfAbsent(node.val, k -> new ArrayList<>()).add(node.right.val);
+            adjacencyList.computeIfAbsent(node.right.val, k -> new ArrayList<>()).add(node.val);
+        }
+      
+        
+        convertToGraph(node.left);
+        convertToGraph(node.right);
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    unordered_map<int, vector<int>> graph;
+
+    int amountOfTime(TreeNode* root, int start) {
+        constructGraph(root);
+
+        queue<int> q;
+        q.push(start);
+
+        unordered_set<int> visited;
+
+        int minutesPassed = -1;
+
+        while (!q.empty()) {
+            ++minutesPassed;
+            for (int levelSize = q.size(); levelSize > 0; --levelSize) {
+                int currentNode = q.front();
+                q.pop();
+                visited.insert(currentNode);
+                for (int adjacentNode : graph[currentNode]) {
+                    if (!visited.count(adjacentNode)) {
+                        q.push(adjacentNode);
+                    }
+                }
+            }
+        }
+
+        return minutesPassed;
+    }
+
+    void constructGraph(TreeNode* root) {
+        if (!root) return;
+
+        if (root->left) {
+            graph[root->val].push_back(root->left->val);
+            graph[root->left->val].push_back(root->val);
+        }
+
+        if (root->right) {
+            graph[root->val].push_back(root->right->val);
+            graph[root->right->val].push_back(root->val);
+        }
+
+        constructGraph(root->left);
+        constructGraph(root->right);
+    }
+};
