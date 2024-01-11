@@ -1,0 +1,54 @@
+Problem Link : https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/description/?envType=daily-question&envId=2024-01-11
+
+
+Java Solution:
+class Solution {
+    public int maxAncestorDiff(TreeNode root) {
+        if (root==null)
+            return 0;
+        int min_value = root.val;
+        int max_value = root.val;
+        maxi_difference(root, min_value, max_value);
+        return diff;
+    }
+
+    int diff = 0;
+
+    void maxi_difference(TreeNode root, int min_value, int max_value) {
+        if (root==null)
+            return;
+        diff = Math.max(diff, Math.max(Math.abs(min_value - root.val), Math.abs(max_value - root.val)));
+        min_value = Math.min(min_value, root.val);
+        max_value = Math.max(max_value, root.val);
+        maxi_difference(root.left, min_value, max_value);
+        maxi_difference(root.right, min_value, max_value);
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    int maxAncestorDiff(TreeNode* root) {
+        if (!root)
+            return 0;
+        int min_value = root->val;
+        int max_value = root->val;
+        maxi_difference(root, min_value, max_value);
+        return diff;
+    }
+
+private:
+    int diff = 0;
+
+    void maxi_difference(TreeNode* root, int min_value, int max_value) {
+        if (!root)
+            return;
+        diff = max(diff, max(abs(min_value - root->val), abs(max_value - root->val)));
+        min_value = min(min_value, root->val);
+        max_value = max(max_value, root->val);
+        maxi_difference(root->left, min_value, max_value);
+        maxi_difference(root->right, min_value, max_value);
+    }
+};
