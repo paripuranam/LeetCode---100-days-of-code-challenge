@@ -1,0 +1,41 @@
+Problem Link : https://leetcode.com/problems/path-sum/description/
+
+
+Java Solution:
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        
+        if (root.left == null && root.right == null) {
+            return targetSum == root.val;
+        }
+        
+        boolean leftSum = hasPathSum(root.left, targetSum - root.val);
+        boolean rightSum = hasPathSum(root.right, targetSum - root.val);
+        
+        return leftSum || rightSum;
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (!root) {
+            return false;
+        }
+        
+        if (!root->left && !root->right) {
+            return targetSum == root->val;
+        }
+        
+        bool left_sum = hasPathSum(root->left, targetSum - root->val);
+        bool right_sum = hasPathSum(root->right, targetSum - root->val);
+        
+        return left_sum || right_sum;
+    }
+};
