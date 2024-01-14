@@ -1,0 +1,56 @@
+Problem Link : https://leetcode.com/problems/determine-if-two-strings-are-close/?envType=daily-question&envId=2024-01-14
+
+
+Java Solution:
+class Solution {
+    public boolean closeStrings(String word1, String word2) {
+        int[] freq1 = new int[26];
+        int[] freq2 = new int[26];
+
+        for (char ch : word1.toCharArray()) freq1[ch - 'a']++;
+
+
+        for (char ch : word2.toCharArray()) freq2[ch - 'a']++;
+
+        for (int i = 0; i < 26; i++) {
+            if ((freq1[i] == 0 && freq2[i] != 0) || (freq1[i] != 0 && freq2[i] == 0)) {
+                return false;
+            }
+        }
+
+        Arrays.sort(freq1);
+        Arrays.sort(freq2);
+
+        for (int i = 0; i < 26; i++) {
+            if (freq1[i] != freq2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+
+
+
+C++ Solution:
+class Solution {
+public:
+    bool closeStrings(std::string word1, std::string word2) {
+        vector<int> mp1(26, 0), mp2(26, 0);
+        
+        for(auto i : word1) mp1[i - 'a']++;
+        for(auto i : word2) mp2[i - 'a']++;
+
+        for (int i = 0; i < mp1.size(); i++) {
+            if ((mp1[i] == 0 && mp2[i] != 0) || (mp1[i] != 0 && mp2[i] == 0)) {
+                return false;
+            }
+        }
+
+        sort(mp1.begin(), mp1.end());
+        sort(mp2.begin(), mp2.end());
+        return mp1 == mp2;
+    }
+};
