@@ -1,0 +1,45 @@
+Problem Link : https://leetcode.com/problems/minimum-depth-of-binary-tree/description/
+
+
+Java Solution:
+class Solution {
+    public int minDepth(TreeNode root) {
+
+        if(root == null)  return 0;
+
+        int leftDepth = minDepth(root.left);
+        int rightDepth = minDepth(root.right);
+
+        if(root.left == null && root.right == null)
+            return 1;
+
+        if(root.left == null)
+            return 1 + rightDepth;
+        if(root.right == null)
+            return 1 + leftDepth;
+
+        return Math.min(leftDepth, rightDepth) + 1;   
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(root == nullptr)  return 0;
+
+        int leftDepth = minDepth(root->left);
+        int rightDepth = minDepth(root->right);
+
+        if(root->left == nullptr && root->right == nullptr)
+            return 1;
+
+        if(root->left == nullptr)
+            return 1 + rightDepth;
+        if(root->right == nullptr)
+            return 1 + leftDepth;
+
+        return min(leftDepth, rightDepth) + 1;  
+    }
+};
