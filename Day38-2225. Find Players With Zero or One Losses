@@ -1,0 +1,81 @@
+Problem Link : https://leetcode.com/problems/find-players-with-zero-or-one-losses/description/?envType=daily-question&envId=2024-01-15
+
+
+Java Solution:
+import java.util.Hashtable;
+class Solution {
+    public List<List<Integer>> findWinners(int[][] matches) {
+        Hashtable<Integer, Integer> mpp = new Hashtable<>();
+        for (int i = 0; i < matches.length; i++) {
+            int lose = matches[i][1];
+            mpp.put(lose, mpp.getOrDefault(lose, 0) + 1);
+        }
+
+        List<Integer> no_loss = new ArrayList<>();
+        List<Integer> one_loss = new ArrayList<>();
+
+        for (int i = 0; i < matches.length; i++) {
+            int win = matches[i][0];
+            int loss = matches[i][1];
+
+            if (!mpp.containsKey(win)) {
+                no_loss.add(win);
+                mpp.put(win, 2);
+            }
+
+            if (mpp.get(loss) == 1) {
+                one_loss.add(loss);
+            }
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        Collections.sort(no_loss);
+        Collections.sort(one_loss);
+
+        result.add(no_loss);
+        result.add(one_loss);
+        return result;
+    }
+}
+
+
+
+
+C++ Solution:
+class Solution {
+public:
+    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        unordered_map<int,int> mpp;
+    
+        for(int i=0;i<matches.size();i++)
+        {
+            int lose=matches[i][1];
+            mpp[lose]++;
+        }
+        vector<int>no_loss;
+        vector<int>one_loss;
+        for(int i=0;i<matches.size();i++)
+        {
+           int win=matches[i][0];
+           int loss=matches[i][1];
+           if(mpp.find(win)==mpp.end()) 
+           {
+               no_loss.push_back(win);
+               mpp[win]=2;
+
+           }
+           if(mpp[loss]==1)
+                one_loss.push_back(loss);
+
+        }
+        vector<vector<int>> ans;
+        
+        sort(no_loss.begin(),no_loss.end());    
+        sort(one_loss.begin(),one_loss.end());
+        
+        ans.push_back(no_loss);
+        ans.push_back(one_loss);
+
+        return ans;
+    }
+};
