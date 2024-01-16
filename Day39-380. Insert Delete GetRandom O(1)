@@ -1,0 +1,96 @@
+Problem Link : https://leetcode.com/problems/insert-delete-getrandom-o1/description/?envType=daily-question&envId=2024-01-16
+
+
+Java Solution:
+class RandomizedSet {
+    private ArrayList<Integer> list;
+    private Map<Integer, Integer> mp;
+
+    public RandomizedSet() {
+        list = new ArrayList<>();
+        mp = new HashMap<>();
+    }
+
+    public boolean search(int val) {
+        return mp.containsKey(val);
+    }
+
+    public boolean insert(int val) {
+        if (search(val)) return false;
+
+        list.add(val);
+        mp.put(val, list.size() - 1);
+        return true;
+    }
+
+    public boolean remove(int val) {
+        if (!search(val)) return false;
+
+        int index = mp.get(val);
+        list.set(index, list.get(list.size() - 1));
+        mp.put(list.get(index), index);
+        list.remove(list.size() - 1);
+        mp.remove(val);
+
+        return true;
+    }
+
+    public int getRandom() {
+        Random rand = new Random();
+        return list.get(rand.nextInt(list.size()));
+    }
+}
+
+
+
+
+C++ Solution:
+class RandomizedSet {
+    vector<int> v;
+    unordered_map<int,int> mp;
+public:
+   
+    RandomizedSet() {
+    }
+
+    bool search(int val){
+
+         if(mp.find(val)!=mp.end())
+            return true;
+         return false;
+
+    }
+
+    
+    bool insert(int val) {
+
+        if(search(val))
+            return false;
+
+        v.push_back(val);
+        mp[val] = v.size()-1;
+        return true;
+    }
+
+    
+    bool remove(int val) {
+
+        if(!search(val))
+            return false;
+
+       
+        auto it = mp.find(val);
+        v[it->second] = v.back();
+        v.pop_back();
+        mp[v[it->second]] = it->second;
+        mp.erase(val);
+        return true;
+    }
+
+   
+    int getRandom() {
+
+        return v[rand()%v.size()];
+    }
+};
+
