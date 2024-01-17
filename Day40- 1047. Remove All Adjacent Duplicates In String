@@ -1,0 +1,33 @@
+Problem Link : https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+
+
+Java Solution:
+class Solution {
+    public String removeDuplicates(String S) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : S.toCharArray()) {
+            int size = sb.length();
+            if (size > 0 && sb.charAt(size - 1) == c) {
+                sb.deleteCharAt(size - 1);
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    string removeDuplicates(string S) {
+        string res = "";
+        for (char& c : S)
+            if (res.size() && c == res.back())
+                res.pop_back();
+            else
+                res.push_back(c);
+        return res;
+    }
+};
