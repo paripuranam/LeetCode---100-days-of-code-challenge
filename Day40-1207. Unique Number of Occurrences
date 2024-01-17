@@ -1,0 +1,56 @@
+Problem Link : https://leetcode.com/problems/unique-number-of-occurrences/description/?envType=daily-question&envId=2024-01-17
+
+
+Java Solution:
+import java.util.Hashtable;
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        Hashtable<Integer, Integer> mp = new Hashtable<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            if (mp.containsKey(arr[i])) {
+                mp.put(arr[i], mp.get(arr[i]) + 1);
+            } else {
+                mp.put(arr[i], 1);
+            }
+        }
+
+        HashSet<Integer> occurrences_set = new HashSet<>();
+        for (int i : mp.values()) {
+            if (!occurrences_set.add(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    bool uniqueOccurrences(std::vector<int>& arr) {
+        unordered_map<int, int> mp;
+
+        for (int i = 0; i < arr.size(); ++i) {
+            if (mp.count(arr[i])) {
+                mp[arr[i]] += 1;
+            } else {
+                mp[arr[i]] = 1;
+            }
+        }
+
+        unordered_set<int> occurrences_set;
+
+        for (auto i : mp) {
+            int freq = i.second;
+            if(occurrences_set.find(freq) != occurrences_set.end()) return false;
+            else{
+                occurrences_set.insert(freq);
+            }
+        }
+
+        return true;
+    }
+};
