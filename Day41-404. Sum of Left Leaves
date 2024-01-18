@@ -1,0 +1,48 @@
+Problem Link : https://leetcode.com/problems/sum-of-left-leaves/description/
+
+
+Java Solution:
+class Solution {
+    int sum=0;
+    public int sumOfLeftLeaves(TreeNode root) { 
+        helper(root,false);
+        return sum;
+    }
+    public void helper(TreeNode root,boolean isLeft)
+    {
+        if(root==null ) return;    
+        if(root.left==null && root.right==null)
+        {
+            if(isLeft)
+            sum+=root.val;
+        }
+        helper(root.left,true);
+        helper(root.right,false);
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    int ans = 0;
+    int sumOfLeftLeaves(TreeNode* root)
+    {
+        helper(root);
+        return ans;
+    }
+    
+    void helper(TreeNode* root)
+    {
+        if(root != NULL)
+        {
+            if(root->left != NULL && root->left->left == NULL && root->left->right == NULL)
+            {
+                ans += root->left->val;
+            }
+            helper(root->left);
+            helper(root->right);
+        }
+    }
+};
