@@ -1,0 +1,78 @@
+Problem Link : https://leetcode.com/problems/reverse-words-in-a-string/description/
+
+
+Java Solution:
+class Solution {
+    public String reverseWords(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        sb.reverse();
+        s = sb.toString();
+
+        int start = 0; 
+        int end = 0;   
+        int i = 0;     
+        int n = s.length(); 
+
+        sb = new StringBuilder(); 
+
+        while (i < n) {
+            while (i < n && s.charAt(i) == ' ')
+                i++;
+
+            start = i;
+            while (i < n && s.charAt(i) != ' ')
+                i++;
+
+            if (start < i) {
+                StringBuilder reversedWord = new StringBuilder(s.substring(start, i));
+                reversedWord.reverse();
+
+                sb.append(reversedWord);
+
+                sb.append(' ');
+            }
+        }
+
+        if (sb.length() > 0)
+            sb.setLength(sb.length() - 1);
+
+        return sb.toString();
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    string reverseWords(string s) {
+        reverse(s.begin(), s.end());
+
+        int start = 0; 
+        int end = 0;   
+        int i = 0;     
+        int n = s.size(); 
+
+        while (i < n) {
+            while (i < n && s[i] == ' ')
+                i++;
+
+            while (i < n && s[i] != ' ')
+                s[end++] = s[i++];
+
+            if (start < end) {
+                reverse(s.begin() + start, s.begin() + end);
+
+                s[end++] = ' ';
+
+                start = end;
+            }
+            i++;
+        }
+
+        if (end > 0)
+            s.resize(end - 1);
+
+        return s;
+    }
+};
