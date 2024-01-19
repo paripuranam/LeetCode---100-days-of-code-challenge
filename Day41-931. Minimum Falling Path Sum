@@ -1,0 +1,67 @@
+Problem Link : https://leetcode.com/problems/minimum-falling-path-sum/description/?envType=daily-question&envId=2024-01-19
+
+
+C++ Solution:
+class Solution {
+public:
+    static int minFallingPathSum(std::vector<std::vector<int>>& A) {
+        int rows = A.size();
+        int cols = A[0].size();
+        std::vector<std::vector<int>> dp(rows, std::vector<int>(cols + 2, 0));
+
+        for (int i = 1; i <= cols; i++) {
+            dp[0][i] = A[0][i - 1];
+        }
+
+        for (int i = 0; i < rows; i++) {
+            dp[i][0] = INT_MAX;
+            dp[i][cols + 1] = INT_MAX;
+        }
+
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j <= cols; j++) {
+                int minNeighbor = std::min(dp[i - 1][j - 1], dp[i - 1][j]);
+                minNeighbor = std::min(minNeighbor, dp[i - 1][j + 1]);
+                dp[i][j] = A[i][j - 1] + minNeighbor;
+            }
+        }
+
+        int min = INT_MAX;
+        for (int i = 1; i <= cols; i++) {
+            min = std::min(min, dp[rows - 1][i]);
+        }
+
+        return min;
+    }
+};
+
+
+
+
+Java Solution:
+class Solution {
+    public static int minFallingPathSum(int[][] A) {
+        int rows = A.length;
+        int cols = A[0].length;
+        int[][] dp = new int[rows][cols + 2];
+        for (int i = 1; i <= cols; i++) {
+          dp[0][i] = A[0][i - 1];
+        }
+        for (int i = 0; i < rows; i++) {
+          dp[i][0] = Integer.MAX_VALUE;
+          dp[i][cols + 1] = Integer.MAX_VALUE;
+        }
+        for (int i = 1; i < rows; i++) {
+          for (int j = 1; j <= cols; j++) {
+            int minNeighbor = Math.min(dp[i - 1][j - 1], dp[i - 1][j]);
+            minNeighbor = Math.min(minNeighbor, dp[i - 1][j + 1]);
+            dp[i][j] = A[i][j - 1] + minNeighbor;
+          }
+        }
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i <= cols; i++) {
+          min = Math.min(min, dp[rows - 1][i]);
+        }
+        return min;
+    }       
+}       
