@@ -1,0 +1,38 @@
+Problem Link : https://leetcode.com/problems/diameter-of-binary-tree/description/
+
+
+Java Solution:
+class Solution {
+    int result = -1;
+    public int diameterOfBinaryTree(TreeNode root) {
+        dfs(root);
+        return result;
+    }
+    private int dfs(TreeNode current) {
+        if (current == null) {
+            return -1;
+        }
+        int left = 1 + dfs(current.left);
+        int right = 1 + dfs(current.right);
+        result = Math.max(result, (left + right));
+        return Math.max(left, right);
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        int d = 0;
+        findHeight(root, d);
+        return d;
+    }
+    int findHeight(TreeNode* root, int &d){
+        if(root==NULL) return 0;
+        int lh = max(findHeight(root->left, d), 0);
+        int rh = max(findHeight(root->right, d), 0);
+        d = max(d, lh+rh);
+        return max(lh, rh)+1;
+    }
+};
