@@ -1,0 +1,68 @@
+Problem Link : https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
+
+
+Java Solution:
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        helper(root, ans, 1);
+        zigzag(ans);
+        return ans;
+    }
+
+    private void helper(TreeNode root, List<List<Integer>> ans, int currLevel){
+        if(root == null) return;
+        if(ans.size() < currLevel) ans.add(new ArrayList<>());
+        ans.get(currLevel-1).add(root.val);
+        helper(root.left, ans, currLevel+1);
+        helper(root.right, ans, currLevel+1);
+    }
+
+    private void zigzag(List<List<Integer>> ans){
+        for(int i=0; i<ans.size(); i++){
+            if(i%2 == 1){
+                Collections.reverse(ans.get(i));
+            }
+        }
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    int height(TreeNode* root) {
+        if(!root) return 0;
+        int lheight=height(root->left);
+        int rheight=height(root->right);
+        return max(lheight,rheight)+1;
+    }
+    void currentlevel(TreeNode* root,int level,bool order,vector<int>& ans) {
+        if(!root) return;
+        if(level==1) {
+            ans.push_back(root->val);
+            return;
+        }
+        if(order) {
+            currentlevel(root->left,level-1,order,ans);
+            currentlevel(root->right,level-1,order,ans);
+        }
+        else {
+            currentlevel(root->right,level-1,order,ans);
+            currentlevel(root->left,level-1,order,ans);
+        }
+    }
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        int h=height(root);
+        vector<vector<int>> res;
+        bool order=true;
+        for(int i=1; i<h+1; i++) {
+            vector<int> ans;
+            currentlevel(root,i,order,ans);
+            res.push_back(ans);
+            order=!order;
+        }
+        return res;
+    }
+};
