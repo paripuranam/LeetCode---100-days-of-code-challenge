@@ -1,0 +1,51 @@
+Problem Link : https://leetcode.com/problems/number-of-subarrays-with-lcm-equal-to-k/description/
+
+
+Java Solution:
+class Solution {
+    public int subarrayLCM(int[] nums, int k) {
+        int count = 0, lcm = 1;
+        for(int i = 0; i < nums.length; i++) {
+            lcm = 1;
+            for(int j = i; j < nums.length; j++) {
+                lcm = lcm(lcm, nums[j]);
+                if(lcm == k) count++;
+                else if(lcm > k) break;
+            }
+        }
+        return count;
+    }
+    public static int gcd(int a, int b) {
+        return a==0 ? b : gcd(b%a, a);
+    }
+    public static int lcm(int a, int b) {
+        return (a*b) / gcd(a, b);
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    long _lcm(long a, long b) {
+        return (a * b) / __gcd(a, b);
+    }
+    
+    int subarrayLCM(vector<int>& nums, int k) {
+        long count = 0, lcm, n = nums.size();
+        
+        for(int i = 0; i < n; i++) {
+            lcm = nums[i];
+            for(int j = i; j < n; j++) {
+                lcm = _lcm(lcm, nums[j]);
+                if(lcm == k)
+                    count++;
+                if(lcm > k)
+                    break;
+            }
+        }
+        
+        return count;
+    }
+};
