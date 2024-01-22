@@ -1,0 +1,46 @@
+Problem Link : https://leetcode.com/problems/house-robber/description/?envType=daily-question&envId=2024-01-21
+
+
+Java Solution:
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int prev = nums[0];
+        int prev1 = 0;
+
+        for(int i = 1;i<n;i++){
+            int take = nums[i];
+            if(i>1) take+=prev1;
+
+            int Notake = 0 + prev;
+            int curi = Math.max(take,Notake);
+            prev1 = prev;
+            prev = curi;
+        }
+        return prev;
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        int prev=nums[0];
+        int prev1 = 0;
+
+        for(int i=1;i<n;i++){
+            int take = nums[i];
+            if(i>1) take+=prev1;
+
+            int Notake = 0 + prev;
+
+            int curi = max(take,Notake);
+            prev1 = prev;
+            prev = curi; 
+        }
+        return prev;
+    }
+};
