@@ -1,0 +1,49 @@
+Problem Link : https://leetcode.com/problems/set-mismatch/description/?envType=daily-question&envId=2024-01-22
+
+
+Java Solution:
+
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int[] result = new int[]{ -1, -1 };
+
+        for (int i = 0; i < nums.length; ++i) {
+            while (nums[i] != i + 1) {
+                if (nums[i] == nums[nums[i] - 1]) {
+                    result[0] = nums[i];
+                    result[1] = i + 1;
+                    break;
+                } else {
+                    int temp = nums[i];
+                    nums[i] = nums[temp - 1];
+                    nums[temp - 1] = temp;
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+
+
+
+C++ Solution:
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        vector<int> result(2, -1); 
+        for(int i=0; i<nums.size(); ++i){
+            while(nums[i] != i+1){
+                if(nums[i] == nums[nums[i]-1]){
+                    result[0] = nums[i];
+                    result[1] = i+1; 
+                    break; 
+                }else      
+                    swap(nums[i], nums[nums[i]-1]); 
+            }
+        }
+        return result; 
+    }
+    
+};
