@@ -1,0 +1,48 @@
+Problem Link : https://leetcode.com/problems/sum-of-square-numbers/
+
+
+Java Solution:
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        long maxSqr = (int) Math.sqrt(c);
+        long l = 0, r = maxSqr;
+
+        while (l <= r) {
+            long ans = l * l + r * r;
+
+            if (ans > c) {
+                r--;
+            } else if (ans < c) {
+                l++;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        long long maxSqr = sqrt(c);
+        long long l = 0, r = maxSqr;
+
+        while (l <= r) {
+            long long ans = l * l + r * r;
+
+            if (ans > c) {
+                r--;
+            } else if (ans < c) {
+                l++;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
