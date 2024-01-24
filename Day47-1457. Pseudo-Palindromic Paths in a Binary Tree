@@ -1,0 +1,30 @@
+Problem Link : https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/description/?envType=daily-question&envId=2024-01-24
+
+
+C++ Solution:
+class Solution {
+    public:
+        int pseudoPalindromicPaths(TreeNode* root, int count = 0) {
+        if (!root) return 0;
+        count ^= 1 << (root->val - 1);
+        int res = pseudoPalindromicPaths(root->left, count) + pseudoPalindromicPaths(root->right, count);
+        if (root->left == root->right && (count & (count - 1)) == 0) res++;
+        return res;
+    }
+};
+
+
+Java Solution:
+class Solution {
+        public int pseudoPalindromicPaths (TreeNode root) {
+        return dfs(root, 0);
+    }
+
+    private int dfs(TreeNode root, int count) {
+        if (root == null) return 0;
+        count ^= 1 << (root.val - 1);
+        int res = dfs(root.left, count) + dfs(root.right, count);
+        if (root.left == root.right && (count & (count - 1)) == 0) res++;
+        return res;
+    }
+}
