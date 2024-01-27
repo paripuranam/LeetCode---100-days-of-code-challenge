@@ -1,0 +1,45 @@
+Problem Link : https://leetcode.com/problems/rotate-array/description/
+
+
+Java Solution:
+class Solution {
+    public void rotate(int[] nums, int k) {
+        k %= nums.length;
+        int n = nums.length;
+        rotateArray(nums,0,n-1);
+        rotateArray(nums,0,k-1);
+        rotateArray(nums,k,n-1);
+    }
+    public void rotateArray(int[] nums, int start, int end){
+        while(start<end){
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        k %= nums.size();
+        int n = nums.size();
+        rotateArray(nums,0,n-1);
+        rotateArray(nums,0,k-1);
+        rotateArray(nums,k,n-1);
+    }
+    public:
+    void rotateArray(vector<int>& nums, int start, int end){
+        while(start<end){
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+};
