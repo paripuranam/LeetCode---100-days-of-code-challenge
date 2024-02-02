@@ -1,0 +1,48 @@
+Problem Link : https://leetcode.com/problems/max-number-of-k-sum-pairs/description/?envType=study-plan-v2&envId=leetcode-75
+
+
+Java Solution:
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int low = 0 ;
+        int high = n-1;
+        int ans = 0;
+        while(low < high){
+            int sum = nums[low] + nums[high];
+            if(sum==k){
+                ans++;
+                low++;
+                high--;
+            }
+            else if(sum<k) low++;
+            else high--;
+        }
+        return ans;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        int n = nums.size();
+        int low = 0 ;
+        int high = n-1;
+        int ans = 0;
+        while(low < high){
+            int sum = nums[low] + nums[high];
+            if(sum==k){
+                ans++;
+                low++;
+                high--;
+            }
+            else if(sum<k) low++;
+            else high--;
+        }
+        return ans;
+    }
+};
