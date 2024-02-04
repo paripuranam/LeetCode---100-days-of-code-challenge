@@ -1,0 +1,105 @@
+Problem Link : https://leetcode.com/problems/minimum-window-substring/description/?envType=daily-question&envId=2024-02-04
+
+
+Java Solution:
+class Solution {
+public String minWindow(String s, String t) {
+    if(s == null || s.length() < t.length() || s.length() == 0){
+        return "";
+    }
+    HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+    for(char c : t.toCharArray()){
+        if(map.containsKey(c)){
+            map.put(c,map.get(c)+1);
+        }else{
+            map.put(c,1);
+        }
+    }
+    int left = 0;
+    int minLeft = 0;
+    int minLen = s.length()+1;
+    int count = 0;
+    for(int right = 0; right < s.length(); right++){
+        if(map.containsKey(s.charAt(right))){
+            map.put(s.charAt(right),map.get(s.charAt(right))-1);
+            if(map.get(s.charAt(right)) >= 0){
+                count ++;
+            }
+            while(count == t.length()){
+                if(right-left+1 < minLen){
+                    minLeft = left;
+                    minLen = right-left+1;
+                }
+                if(map.containsKey(s.charAt(left))){
+                    map.put(s.charAt(left),map.get(s.charAt(left))+1);
+                    if(map.get(s.charAt(left)) > 0){
+                        count --;
+                    }
+                }
+                left ++ ;
+            }
+        }
+    }
+    if(minLen>s.length())  
+    {  
+        return "";  
+    }  
+    
+    return s.substring(minLeft,minLeft+minLen);
+}
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    std::string minWindow(string s,string t) {
+        if (s.empty() || s.length() < t.length() || s.length() == 0) {
+            return "";
+        }
+
+        unordered_map<char, int> charCount;
+        for (char c : t) {
+            charCount[c]++;
+        }
+
+        int left = 0;
+        int minLeft = 0;
+        int minLen = s.length() + 1;
+        int count = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            if (charCount.find(s[right]) != charCount.end()) {
+                charCount[s[right]]--;
+
+                if (charCount[s[right]] >= 0) {
+                    count++;
+                }
+
+                while (count == t.length()) {
+                    if (right - left + 1 < minLen) {
+                        minLeft = left;
+                        minLen = right - left + 1;
+                    }
+
+                    if (charCount.find(s[left]) != charCount.end()) {
+                        charCount[s[left]]++;
+
+                        if (charCount[s[left]] > 0) {
+                            count--;
+                        }
+                    }
+
+                    left++;
+                }
+            }
+        }
+
+        if (minLen > s.length()) {
+            return "";
+        }
+
+        return s.substr(minLeft, minLen);
+    }
+};
