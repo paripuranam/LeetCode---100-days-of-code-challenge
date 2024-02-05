@@ -1,0 +1,57 @@
+Problem Link : https://leetcode.com/problems/first-unique-character-in-a-string/description/?envType=daily-question&envId=2024-02-05
+
+
+Java Solution:
+import java.util.Hashtable;
+class Solution {
+    public int firstUniqChar(String s) {
+        Hashtable<Character, Integer> mp = new Hashtable<>();
+        int n = s.length();
+        for(int i=0;i<n;i++){
+            char c = s.charAt(i);
+            if(mp.containsKey(c)){
+                mp.put(c, mp.get(c)+1);
+            }
+            else{
+                mp.put(c, 1);
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            char ch = s.charAt(i);
+            if(mp.get(ch)==1){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        unordered_map<char,int> mp;
+        int n = s.size();
+        for(int i = 0;i<n;i++){
+            char c = s[i];
+            if(mp.find(c)!=mp.end()){
+                mp[s[i]]++;
+            }
+            else{
+                mp[s[i]]=1;
+            }
+        }
+
+        for(int i =0;i<n;i++){
+            char ch = s[i];
+            if(mp[s[i]]==1){
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+};
