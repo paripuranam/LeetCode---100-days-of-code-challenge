@@ -1,0 +1,46 @@
+Problem Link : https://leetcode.com/problems/group-anagrams/description/?envType=daily-question&envId=2024-02-06
+
+
+Java Solution:
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        
+        for (String s : strs) {
+            char[] charArray = s.toCharArray();
+            Arrays.sort(charArray);
+            String sortedString = new String(charArray);
+            
+            if (!map.containsKey(sortedString)) {
+                map.put(sortedString, new ArrayList<>());
+            }
+            map.get(sortedString).add(s);
+        }
+        
+        List<List<String>> anagrams = new ArrayList<>();
+        for (List<String> list : map.values()) {
+            anagrams.add(list);
+        }
+        
+        return anagrams;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> mp;
+        for (string s : strs) {
+            string t = s; 
+            sort(t.begin(), t.end());
+            mp[t].push_back(s);
+        }
+        vector<vector<string>> anagrams;
+        for (auto p : mp) { 
+            anagrams.push_back(p.second);
+        }
+        return anagrams;
+    }
+};
