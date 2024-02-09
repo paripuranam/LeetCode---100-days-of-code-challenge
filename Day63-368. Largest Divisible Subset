@@ -1,0 +1,85 @@
+Problem Link : https://leetcode.com/problems/largest-divisible-subset/description/?envType=daily-question&envId=2024-02-09
+
+
+Java Solution:
+class Solution {
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp,-1);
+        Arrays.sort(nums);
+        int[] hash = new int[nums.length];
+        int maxi = -1;
+        int lastIndex = 0;
+        for(int index=0;index<nums.length;index++){
+            hash[index] = index;
+            for(int col=0;col<index;col++){
+                if(nums[index]%nums[col]==0 && 1 + dp[col] > dp[index]){
+                    dp[index] = 1 + dp[col];
+                    hash[index] = col;
+                }
+            }
+            if(dp[index]>maxi){
+                maxi = dp[index];
+                lastIndex = index;
+            }
+        } 
+        List<Integer> lst = new ArrayList<Integer>();
+        lst.add(nums[lastIndex]);
+        while(hash[lastIndex]!=lastIndex){
+            lastIndex = hash[lastIndex];
+            lst.add(nums[lastIndex]);
+        }
+        return lst;
+    }
+    
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        
+        int n = nums.size();
+        vector<int>dp(n , 1) , hash(n);
+        int maxi = 1;
+        int lastindex = 0;
+
+        sort(nums.begin() , nums.end());
+
+        for(int ind = 0 ; ind < n ; ind++ ){
+
+            hash[ind] = ind;
+
+            for(int prev = 0 ; prev < ind ; prev++){
+
+                if(nums[ind] % nums[prev] == 0 && 1 + dp[prev] > dp[ind]){
+
+                    dp[ind] = 1 +  dp[prev];
+                    hash[ind] = prev;
+
+                }
+            }
+
+            if(maxi < dp[ind]){
+                maxi = dp[ind];
+                lastindex = ind;
+            }
+
+        }
+
+        vector<int>temp;
+        temp.push_back(nums[lastindex]);
+
+        while(hash[lastindex] != lastindex){
+
+            lastindex = hash[lastindex];
+            temp.push_back(nums[lastindex]);
+
+        }
+     
+        reverse(temp.begin() , temp.end());
+
+        return temp; 
+    }
+};
