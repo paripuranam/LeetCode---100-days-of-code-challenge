@@ -1,0 +1,97 @@
+Problem Link : https://leetcode.com/problems/minimum-common-value/description/?envType=daily-question&envId=2024-03-09
+
+C++ Solution 1:
+class Solution {
+public:
+    int getCommon(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size(), n2 = nums2.size();
+        int i = 0, j = 0;
+        while( i < n1 && j < n2) {
+            if(nums1[i] == nums2[j])
+               return nums1[i];
+            else if(nums1[i] < nums2[j])
+               i++;
+            else
+               j++;
+        }
+        return -1;
+    }
+};
+
+
+C++ Soluion 2:
+class Solution {
+public:
+    int getCommon(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        map<int,int> mp;
+
+        for(int i = 0;i<n1;i++){
+            if(mp.find(nums1[i])!=mp.end()){
+                continue;
+            }
+            else mp[nums1[i]]=1;
+        }
+
+        for(int i = 0;i<n2;i++){
+            if(mp.find(nums2[i])!=mp.end()){
+                mp[nums2[i]]++;
+                return nums2[i];
+            }
+            else continue;
+        }
+
+       
+        return -1;
+    }
+};
+
+
+Java Solution 1:
+class Solution {
+    public int getCommon(int[] nums1, int[] nums2) {
+        int n1 = nums1.length, n2 = nums2.length;
+        int i = 0, j = 0;
+        while( i < n1 && j < n2) {
+            if(nums1[i] == nums2[j])
+               return nums1[i];
+            else if(nums1[i] < nums2[j])
+               i++;
+            else
+               j++;
+        }
+        return -1;
+    }
+}
+
+
+
+Java Solution 2:
+import java.util.Hashtable;
+
+class Solution {
+    public int getCommon(int[] nums1, int[] nums2) {
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        Hashtable<Integer, Integer> mp = new Hashtable<>();
+
+        for (int i = 0; i < n1; i++) {
+            if (mp.containsKey(nums1[i])) {
+                continue;
+            } else {
+                mp.put(nums1[i], 1);
+            }
+        }
+
+        for (int i = 0; i < n2; i++) {
+            if (mp.containsKey(nums2[i])) {
+                mp.put(nums2[i], mp.get(nums2[i]) + 1);
+                return nums2[i];
+            } 
+        }
+
+        return -1;
+    }
+}
+
