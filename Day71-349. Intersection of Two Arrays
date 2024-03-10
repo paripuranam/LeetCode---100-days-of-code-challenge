@@ -1,0 +1,55 @@
+Problem Link : https://leetcode.com/problems/intersection-of-two-arrays/description/?envType=daily-question&envId=2024-03-10
+
+C++ Solution:
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        set<int> st;
+
+        for(int i = 0;i<n1;i++){
+            st.insert(nums1[i]);
+        }
+        vector<int> ans;
+        for(int i=0;i<n2;i++){
+            if(st.find(nums2[i])!=st.end()){
+                ans.push_back(nums2[i]);
+                st.erase(nums2[i]);
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+Java Solution:
+import java.util.HashSet;
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        HashSet<Integer> st = new HashSet<>();
+
+        for(int i = 0;i<n1;i++){
+            st.add(nums1[i]);
+        }
+
+        List<Integer> result = new ArrayList();
+        for(int i=0;i<n2;i++){
+            if(st.contains(nums2[i])){
+                result.add(nums2[i]);
+                st.remove(nums2[i]);
+            }
+        }
+
+        int[] ans = new int[result.size()];
+
+        for(int i=0;i<ans.length;i++){
+            ans[i] = result.get(i);
+        }
+
+        return ans;
+    }
+}
