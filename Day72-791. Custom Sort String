@@ -1,0 +1,75 @@
+Problem Link : https://leetcode.com/problems/custom-sort-string/?envType=daily-question&envId=2024-03-11
+
+
+Java Solution:
+import java.util.Hashtable;
+class Solution {
+    public String customSortString(String order, String s) {
+        Hashtable<Character, Integer> mp = new Hashtable<>();
+
+        for(int i=0;i<s.length();i++){
+            if(mp.containsKey(s.charAt(i))){
+                mp.put(s.charAt(i), mp.get(s.charAt(i))+1);
+            }
+            else mp.put(s.charAt(i), 1);
+        }
+
+        String ans = "";
+        for(int i = 0;i < order.length();i++){
+            char ch = order.charAt(i);
+            if(mp.containsKey(ch)){
+                int freq = mp.get(ch);
+                for(int j = 0;j<freq;j++){
+                    ans+=ch;
+                }
+            }
+            mp.remove(ch);
+        }
+
+        for(char c : mp.keySet()){
+            int freq = mp.get(c);
+            for(int j=0;j<freq;j++)
+                ans+=Character.toString(c);
+        }
+        
+        return ans;
+    }
+}
+
+
+C++ Solution:
+
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        unordered_map<char, int> mp;
+
+        for(int i=0;i<s.length();i++){
+            if(mp.find(s[i])!=mp.end()){
+                mp[s[i]]++;
+            }
+            else mp[s[i]]=1;
+        }
+
+        string ans = "";
+        for(int i=0;i<order.length();i++){
+            char ch = order[i];
+            if(mp.find(ch)!=mp.end()){
+                int freq = mp[ch];
+                for(int i =0;i<freq;i++){
+                    ans+=ch;
+                }
+            }
+            mp.erase(ch);
+        }
+
+        for(auto c : mp){
+            int freq = c.second;
+            for(int j=0;j<freq;j++){
+                ans+=c.first;
+            }
+        }
+
+        return ans;
+    }
+};
