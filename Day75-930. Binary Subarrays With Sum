@@ -1,0 +1,49 @@
+Problem Link : https://leetcode.com/problems/binary-subarrays-with-sum/description/
+
+
+C++ Solution:
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        int totalCount = 0;
+        int currentSum = 0;
+        unordered_map<int, int> freq; 
+        for (int num : nums) {
+            currentSum += num;
+            if (currentSum == goal){
+                totalCount++;
+            }
+
+            if (freq.find(currentSum - goal) != freq.end()){
+                totalCount += freq[currentSum - goal];
+            }
+
+            freq[currentSum]++;
+        }
+
+        return totalCount;
+    }
+};
+
+
+Java Solution:
+import java.util.HashMap;
+
+class Solution {
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        HashMap<Integer, Integer> count = new HashMap<>();
+        count.put(0, 1);
+        int currSum = 0;
+        int totalSubarrays = 0;
+
+        for (int num : nums) {
+            currSum += num;
+            if (count.containsKey(currSum - goal)) {
+                totalSubarrays += count.get(currSum - goal);
+            }
+            count.put(currSum, count.getOrDefault(currSum, 0) + 1);
+        }
+
+        return totalSubarrays;
+    }
+}
