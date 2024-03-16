@@ -1,0 +1,40 @@
+Problem Link : https://leetcode.com/problems/contiguous-array/description/?envType=daily-question&envId=2024-03-16
+
+
+Java Solution:
+import java.util.HashMap;
+
+public class Solution {
+    public int findMaxLength(int[] nums) {
+        int sum = 0, maxLen = 0;
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        mp.put(0, -1);
+        
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i] == 1 ? 1 : -1;
+            if (mp.containsKey(sum)) {
+                maxLen = Math.max(maxLen, i - mp.get(sum));
+            } else {
+                mp.put(sum, i);
+            }
+        }
+        return maxLen;
+    }
+}
+
+
+C++ solution:
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        int sum=0, maxLen=0;
+        unordered_map<int, int> mp{{0, -1}};
+        
+        for(int i=0; i<nums.size(); i++){
+            sum += nums[i]==1 ? 1 : -1;
+            if(mp.count(sum)) maxLen = max(maxLen, i-mp[sum]);
+            else mp[sum] = i;
+        }
+        return maxLen;
+    }
+};
