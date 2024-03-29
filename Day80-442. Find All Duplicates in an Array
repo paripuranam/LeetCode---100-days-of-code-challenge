@@ -1,0 +1,50 @@
+Problem link : https://leetcode.com/problems/find-all-duplicates-in-an-array/description/
+
+Java Solution:
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        int n = nums.length;
+        
+        for (int i = 0; i < n; i++) {
+            mp.put(nums[i], mp.getOrDefault(nums[i], 0) + 1);
+        }
+        
+        List<Integer> ans = new ArrayList<>(); 
+        
+        for (HashMap.Entry<Integer, Integer> i : mp.entrySet()) {
+            if (i.getValue() == 2) {
+                ans.add(i.getKey());
+            }
+        }
+        
+        return ans;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        int n = nums.size();
+        for(int i = 0;i<n;i++){
+            if(mp.find(nums[i])!=mp.end()){
+                mp[nums[i]]++;
+            }
+            else mp[nums[i]]=1;
+        }
+        vector<int> ans;
+        for(auto i : mp){
+            if(i.second==2){
+                ans.push_back(i.first);
+            }
+        }
+        return ans;
+    }
+};
