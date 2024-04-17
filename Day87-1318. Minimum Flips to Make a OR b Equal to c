@@ -1,0 +1,47 @@
+Problem Link : https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c/description/?envType=study-plan-v2&envId=leetcode-75
+
+Java Solution:
+class Solution {
+    int minFlips(int a, int b, int c) {
+        int flipCount = 0;
+
+        while (a > 0 || b > 0 || c > 0) {
+            int aBit = a & 1;
+            int bBit = b & 1;
+            int cBit = c & 1;
+
+            if ((aBit | bBit) != cBit) {
+                flipCount += (aBit == bBit && aBit == 1) ? 2 : 1;
+            }
+
+            a = a >> 1;
+            b = b >> 1;
+            c = c >> 1;
+        }
+        return flipCount;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    int minFlips(int a, int b, int c) {
+        int flipCount = 0;
+
+        while (a > 0 || b > 0 || c > 0) {
+            int aBit = a & 1;
+            int bBit = b & 1;
+            int cBit = c & 1;
+
+            if ((aBit | bBit) != cBit) {
+                flipCount += (aBit == bBit && aBit == 1) ? 2 : 1;
+            }
+
+            a = a >> 1;
+            b = b >> 1;
+            c = c >> 1;
+        }
+        return flipCount;
+    }
+};
