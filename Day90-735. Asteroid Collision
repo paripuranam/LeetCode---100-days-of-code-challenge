@@ -1,0 +1,74 @@
+Problem Link : https://leetcode.com/problems/asteroid-collision/description/?envType=study-plan-v2&envId=leetcode-75
+
+
+Java Solution:
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        Stack<Integer> stack = new Stack<>();
+        for (int x : asteroids) {
+            boolean survive = true;
+            if (x > 0) {
+                stack.push(x);
+            } else {
+                while (!stack.isEmpty()) {
+                    int y = stack.peek();
+                    if (y < 0) {
+                        break;
+                    } else if (x + y == 0) {
+                        survive = false;
+                        stack.pop();
+                        break;
+                    } else if (x + y < 0) {
+                        stack.pop();
+                    } else {
+                        survive = false;
+                        break;
+                    }
+                }
+                if (survive) {
+                    stack.push(x);
+                }
+            }
+        }
+        int[] result = new int[stack.size()];
+        for (int i = result.length - 1; i >= 0; i--) {
+            result[i] = stack.pop();
+        }
+        return result;
+    }
+}
+
+
+
+C++ Solution:
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+       vector<int> st;
+        for(int x: asteroids){
+            bool survive=1;
+            if(x>0) st.push_back(x);
+            else{
+                while(!st.empty()){
+                    int y=st.back();
+                    if (y<0) break;
+                    else if (x+y==0) {
+                        survive=0;
+                        st.pop_back();
+                        break;
+                    }
+                    else if (x+y<0){
+                        st.pop_back();
+                    }
+                    else{
+                        survive=0;
+                        break;
+                    } 
+                }
+                if (survive) 
+                    st.push_back(x);
+            }
+        }
+        return st; 
+    }
+};
