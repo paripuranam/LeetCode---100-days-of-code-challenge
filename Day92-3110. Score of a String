@@ -1,0 +1,29 @@
+Problem link : https://leetcode.com/problems/score-of-a-string/description/?envType=daily-question&envId=2024-06-01
+
+
+Java Solution:
+class Solution {
+    public int scoreOfString(String s) {
+        int n = s.length();
+        int ans = 0;
+        for(int i=0;i<n-1;i++){
+            int dif = Math.abs(s.charAt(i)-s.charAt(i+1));
+            ans+=dif;
+        }
+        return ans;
+    }
+}
+
+C++ Solution:
+class Solution {
+public:
+    int scoreOfString(string s) {
+        int n = s.length();
+        int ans = 0;
+        for(int i=0;i<n-1;i++){
+            int dif = abs(s[i]-s[i+1]);
+            ans+=dif;
+        }
+        return ans;
+    }
+};
