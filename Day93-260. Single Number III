@@ -1,0 +1,57 @@
+Problem Link : https://leetcode.com/problems/single-number-iii/description/?envType=daily-question&envId=2024-05-31
+
+Java Solution:
+import java.util.*;
+
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        int n = nums.length;
+        
+        for (int i = 0; i < n; i++) {
+            if (mp.containsKey(nums[i])) {
+                mp.put(nums[i], mp.get(nums[i]) + 1);
+            } else {
+                mp.put(nums[i], 1);
+            }
+        }
+        
+        List<Integer> ans = new ArrayList<>();
+        
+        for (Map.Entry<Integer, Integer> entry : mp.entrySet()) {
+            if (entry.getValue() == 1) {
+                ans.add(entry.getKey());
+            }
+        }
+        
+        int[] result = new int[ans.size()];
+        for (int i = 0; i < ans.size(); i++) {
+            result[i] = ans.get(i);
+        }
+        
+        return result;
+    }
+}
+
+
+C++ Solution:
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            if(mp.find(nums[i])!=mp.end()){
+                mp[nums[i]]++;
+            }
+            else mp[nums[i]]=1;
+        }
+        vector<int> ans;
+        for(auto i: mp){
+            if(i.second==1){
+                ans.push_back(i.first);
+            }
+        }
+        return ans;
+    }
+};
